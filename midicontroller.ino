@@ -163,17 +163,8 @@ byte CLR[8] =
 // loop counter
 int x = 0;
 
-void Clear()
-{
-   lcd.setCursor(x,0);
-   lcd.write("   ");
-   lcd.setCursor(x,1);
-   lcd.write("   ");
-}
-
 void custom0()
 { // uses segments to build the number 0
- Clear();
  lcd.setCursor(x, 0); // set cursor to column 0, line 0 (first row)
  lcd.write(byte(0));  // call each segment to create
  lcd.write(1);  // top half of the number
@@ -186,7 +177,6 @@ void custom0()
 
 void custom1()
 {
- Clear();
  lcd.setCursor(x,0);
  lcd.write(1);
  lcd.write(2);
@@ -196,7 +186,6 @@ void custom1()
 
 void custom2()
 {
- Clear();
  lcd.setCursor(x,0);
  lcd.write(6);
  lcd.write(6);
@@ -209,7 +198,6 @@ void custom2()
 
 void custom3()
 {
-  Clear();
  lcd.setCursor(x,0);
  lcd.write(6);
  lcd.write(6);
@@ -222,7 +210,6 @@ void custom3()
 
 void custom4()
 {
-  Clear();
  lcd.setCursor(x,0);
  lcd.write(3);
  lcd.write(4);
@@ -233,7 +220,6 @@ void custom4()
 
 void custom5()
 {
-  Clear();
  lcd.setCursor(x,0);
  lcd.write(byte(0));
  lcd.write(6);
@@ -246,7 +232,6 @@ void custom5()
 
 void custom6()
 {
-  Clear();
  lcd.setCursor(x,0);
  lcd.write(byte(0));
  lcd.write(6);
@@ -259,7 +244,6 @@ void custom6()
 
 void custom7()
 {
-  Clear();
  lcd.setCursor(x,0);
  lcd.write(1);
  lcd.write(1);
@@ -270,7 +254,6 @@ void custom7()
 
 void custom8()
 {
-  Clear();
  lcd.setCursor(x,0);
  lcd.write(byte(0));
  lcd.write(6);
@@ -283,7 +266,6 @@ void custom8()
 
 void custom9()
 {
-  Clear();
  lcd.setCursor(x,0);
  lcd.write(byte(0));
  lcd.write(6);
@@ -296,6 +278,11 @@ void WritePatchNR(int PATCH) {
 int High;
 int Low;
 x = 0;
+lcd.setCursor(0,0);
+lcd.write("      ");
+lcd.setCursor(0,1);
+lcd.write("      ");
+
 if (PATCH < 10)
 {
   High = 0;
@@ -616,18 +603,18 @@ int SWCODE;
 }
 
 void SwitchSt(){
+x = 7;
+lcd.setCursor(x,0);
   if (St == 0) {
     St = 1;
-     lcd.setCursor(7,0);
-     lcd.write(4);
+     lcd.write(".");
      WriteBotLine("STP ON ");
      DecodeSwitchOn("STOMP");
   }
   else
   {
      St = 0;
-     lcd.setCursor(7,0);
-     lcd.write(1); 
+     lcd.write(" "); 
      WriteBotLine("STP OFF");
      DecodeSwitchOff("STOMP");
 
@@ -636,18 +623,18 @@ void SwitchSt(){
 }
 
 void SwitchMo(){
+x = 8;
+lcd.setCursor(x,0);
   if (Mo == 0) {
      Mo = 1;
-     lcd.setCursor(9,0);
-     lcd.write(4);
+     lcd.write(".");
      WriteBotLine("MOD ON ");
      DecodeSwitchOn("MOD");
   }
   else
   {
      Mo = 0;
-     lcd.setCursor(9,0);
-     lcd.write(1);
+     lcd.write(" ");
      WriteBotLine("MOD OFF");
      DecodeSwitchOff("MOD");
   }
@@ -655,18 +642,18 @@ void SwitchMo(){
 }
 
 void SwitchDl(){
+x = 9;
+lcd.setCursor(x,0);
   if (Dl == 0) {
      Dl = 1;
-     lcd.setCursor(11,0);
-     lcd.write(4);
+     lcd.write(".");
      WriteBotLine("DLY ON ");
      DecodeSwitchOn("DLY");
   }
   else
   {
      Dl = 0;
-     lcd.setCursor(11,0);
-     lcd.write(1);
+     lcd.write(" ");
      WriteBotLine("DLY OFF");
      DecodeSwitchOff("DLY");
 
@@ -675,18 +662,18 @@ void SwitchDl(){
 }
 
 void SwitchRv(){
+x = 10;
+lcd.setCursor(x,0);
   if (Rv == 0) {
      Rv = 1;
-     lcd.setCursor(13,0);
-     lcd.write(4);
+     lcd.write(".");
      WriteBotLine("RVB ON ");
      DecodeSwitchOn("REV");
   }
   else
   {
      Rv = 0;
-     lcd.setCursor(13,0);
-     lcd.write(1);
+     lcd.write(" ");
      WriteBotLine("RVB OFF");
      DecodeSwitchOff("REV");
 
@@ -743,6 +730,7 @@ if (OLDPATCH != PATCH)
              break;
        }
        case btnSELECT:{
+             PATCH = PATCH + 1;
              break;
        }
        case btnNONE:{
